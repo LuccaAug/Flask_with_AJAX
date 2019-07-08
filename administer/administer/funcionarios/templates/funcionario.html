@@ -1,0 +1,75 @@
+{% extends "base.html"%}
+
+{%block title%} Home  {% endblock %}
+
+{% block content %}
+
+     
+
+<!-- Default form subscription -->
+<form class="form-control">
+
+    {% if funcionario.admin.id == current_user.id %}
+
+        <p class="h4 mb-4">Editar funcionário</p>
+        <p>Trocar informações sobre os funcionários</p>
+
+    {% else %}
+
+        <p class="h4 mb-3">Informações do funcionário</p>
+        <p>Simples consulta</p>
+
+        <p class="h4 mb-4">Cadastrado por: {{ funcionario.admin.nome }}</p>
+
+    {% endif %}
+    <hr/>
+
+
+   <!-- Name -->
+    <input id="nome_edit" type="text" class="form-control form-control-lg mb-4" placeholder="Name" value="{{funcionario.nome}}">
+
+    <!-- Email -->
+    <input id="email_edit" type="email" class="form-control form-control-lg mb-4" placeholder="E-mail" value="{{funcionario.email}}">
+
+    <!-- Idade -->
+    <input id="idade_edit" type="text" class="form-control form-control-lg mb-4" placeholder="Idade" value="{{funcionario.idade}}">
+
+    <select id="setor_edit" class="browser-default custom-select custom-select-lg">
+      <option value="0">Equipe de Administração Financeira</option>
+      <option value="1">Desenvolvedor</option>
+      <option value="2">Equipe de Projetos</option>
+      <option value="3">Equipe de RH</option>
+      <option value="4">Equipe de Marketing</option>
+      <option value="5">Presidência</option>
+      <option value="6">Equipe de Negócios</option>    
+    </select>
+
+    <!-- Sign in button -->
+    <br/>
+    <br/>
+    <br/>
+    {% if funcionario.admin.id == current_user.id %}
+
+        <btn class="btn btn-info" onclick="atualiza()">Alterar</btn>
+        <a class="btn btn-danger" href="{{url_for('funcionarios.excluir', id=funcionario.id)}}" >Deletar</a>
+
+    {% endif %}
+
+</form>
+<!-- Default form subscription -->
+     
+{% if funcionario.admin.id == current_user.id %}
+
+{%  block script %}
+
+<script type="text/javascript">
+    
+
+
+</script>
+
+{% endblock %}
+
+{% endif %}
+
+{% endblock %}
