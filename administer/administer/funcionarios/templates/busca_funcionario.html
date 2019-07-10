@@ -1,0 +1,21 @@
+{% extends "base.html"%}
+
+{%block title%} Home  {% endblock %}
+
+{% block content %}
+    {% if funcionario_search %}  
+        <form action="{{url_for('funcionarios.adicionar')}}" method="GET">
+            {{ add_funcionario.hidden_tag()}}
+            <div style="float: right" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="sample6">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                    {{ add_funcionario.nome(class="mdl-textfield__input" type="text" id="sample6") }}
+                </div>
+            </div>
+        </form>
+    {% endif %}
+{% endblock %}
+
+            

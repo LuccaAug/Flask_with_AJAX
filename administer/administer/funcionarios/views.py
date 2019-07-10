@@ -108,7 +108,7 @@ def editar(id):
 @login_required()
 @funcionarios.route("/exibe_all")
 def exibe_all():
-
+	funcionario_search = True
 	add_funcionario = funcionario_form()
 
 	titulo = "Todos funcionários"
@@ -117,12 +117,12 @@ def exibe_all():
 
 	page = request.args.get('page', 1, type=int)
 	funcionarios = Funcionario.query.paginate(page=page, per_page=12)
-	return render_template("todos_funcionarios.html", setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario)
+	return render_template("todos_funcionarios.html", setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario, funcionario_search=funcionario_search)
 
 @login_required()
 @funcionarios.route("/meus_funcionarios")
 def meus_funcionarios():
-
+	funcionario_search = True
 	add_funcionario = funcionario_form()
 
 	titulo = "Meus funcionários"
@@ -132,7 +132,7 @@ def meus_funcionarios():
 	page = request.args.get('page', 1, type=int)
 	funcionarios = Funcionario.query.filter_by(admin_id=current_user.id).paginate(page=page, per_page=12)
 	
-	return render_template("todos_funcionarios.html", setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario)
+	return render_template("todos_funcionarios.html", setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario, funcionario_search=funcionario_search)
 
 @login_required()
 @funcionarios.route("/exibe/<int:id>")
@@ -142,3 +142,9 @@ def exibe(id):
 	funcionario = Funcionario.query.get_or_404(id)
 
 	return render_template("funcionario.html", add_funcionario=add_funcionario, funcionario=funcionario)
+
+@login_required()
+@funcionarios.route("/buscar/<string:nome>", methods=["GET"])
+@funcionarios.route("/buscar", methods=["GET"], defaults={"Nome":None})
+def buscar(nome):
+	pass
