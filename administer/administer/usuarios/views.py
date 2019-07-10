@@ -14,7 +14,6 @@ usuarios = Blueprint('usuarios', __name__,template_folder='templates/usuarios')
 @usuarios.route("/dashboard", methods=["POST", "GET"])
 @login_required()
 def dashboard():
-	funcionario_search = False
 	totalSetor =[]
 	add_funcionario = funcionario_form()
 
@@ -24,7 +23,7 @@ def dashboard():
 	
 	tabela = [totalSetor.count('0'),totalSetor.count('1'),totalSetor.count('2'),totalSetor.count('3'),totalSetor.count('4'),totalSetor.count('5'),totalSetor.count('6')]
 
-	return render_template("dashboard.html", add_funcionario=add_funcionario, tabela=tabela, funcionario_search=funcionario_search)
+	return render_template("dashboard.html", add_funcionario=add_funcionario, tabela=tabela)
 
 @usuarios.route('/cadastro', methods=['POST', 'GET'])
 def adicionar():
@@ -93,7 +92,6 @@ def logout():
 @login_required()
 @usuarios.route("/perfil", methods=["POST", "GET"])
 def perfil():
-	funcionario_search = False
 	add_funcionario = funcionario_form()
 	editar_user = EditarUserForm()
 
@@ -111,4 +109,4 @@ def perfil():
 
 		flash("Dados atualizados!","success")
 
-	return render_template("perfil.html", add_funcionario=add_funcionario, editar_user=editar_user, funcionario_search=funcionario_search)
+	return render_template("perfil.html", add_funcionario=add_funcionario, editar_user=editar_user)

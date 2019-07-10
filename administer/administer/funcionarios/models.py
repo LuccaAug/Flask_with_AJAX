@@ -14,7 +14,7 @@ class Funcionario(db.Model):
 	admin_id = db.Column(db.Integer, db.ForeignKey('administradores.id'))
 	
 	def __init__(self, form):
-		self.nome = form.nome.data     # self.nome = nome  
-		self.idade = form.idade.data   # self.idade = idade  
-		self.email = form.email.data   # self.email = email   
-		self.setor = form.setor.data   # self.setor = setor  
+		self.nome = form.nome.data     # self.nome = nome
+		self.idade = form.idade.data   # self.idade = idade 
+		self.email = form.email.data   # self.email = email  
+		self.setor = form.setor.data   # self.setor = setor 
