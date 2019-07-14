@@ -16,6 +16,7 @@ usuarios = Blueprint('usuarios', __name__,template_folder='templates/usuarios')
 def dashboard():
 	totalSetor =[]
 	add_funcionario = funcionario_form()
+	pesquisa = False
 
 	funcionarios = Funcionario.query.filter_by(admin_id=current_user.id)
 	for func in funcionarios:
@@ -23,7 +24,7 @@ def dashboard():
 	
 	tabela = [totalSetor.count('0'),totalSetor.count('1'),totalSetor.count('2'),totalSetor.count('3'),totalSetor.count('4'),totalSetor.count('5'),totalSetor.count('6')]
 
-	return render_template("dashboard.html", add_funcionario=add_funcionario, tabela=tabela)
+	return render_template("dashboard.html", pesquisa=pesquisa, add_funcionario=add_funcionario, tabela=tabela)
 
 @usuarios.route('/cadastro', methods=['POST', 'GET'])
 def adicionar():
@@ -93,6 +94,7 @@ def logout():
 @usuarios.route("/perfil", methods=["POST", "GET"])
 def perfil():
 	add_funcionario = funcionario_form()
+	pesquisa = False
 	editar_user = EditarUserForm()
 
 	if editar_user.validate_on_submit(): 
@@ -109,4 +111,4 @@ def perfil():
 
 		flash("Dados atualizados!","success")
 
-	return render_template("perfil.html", add_funcionario=add_funcionario, editar_user=editar_user)
+	return render_template("perfil.html", pesquisa=pesquisa, add_funcionario=add_funcionario, editar_user=editar_user)

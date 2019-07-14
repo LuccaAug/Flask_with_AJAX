@@ -109,6 +109,7 @@ def editar(id):
 @funcionarios.route("/exibe_all")
 def exibe_all():
 	add_funcionario = funcionario_form()
+	pesquisa = True
 
 	titulo = "Todos funcionários"
 	setor = [("0", "Equipe administrativo"), ("1", "Desenvolvedor"), ("2", "Equipe projetos"), ("3", "Equipe RH"), ("4", "Equipe marketing"), ("5", "Equipe presidencia"), ("6", "Equipe Negocios")]
@@ -116,12 +117,13 @@ def exibe_all():
 
 	page = request.args.get('page', 1, type=int)
 	funcionarios = Funcionario.query.paginate(page=page, per_page=12)
-	return render_template("todos_funcionarios.html", setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario)
+	return render_template("todos_funcionarios.html", pesquisa=pesquisa, setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario)
 
 @login_required()
 @funcionarios.route("/meus_funcionarios")
 def meus_funcionarios():
 	add_funcionario = funcionario_form()
+	pesquisa = False
 
 	titulo = "Meus funcionários"
 	setor = [("0", "Equipe administrativo"), ("1", "Desenvolvedor"), ("2", "Equipe projetos"), ("3", "Equipe RH"), ("4", "Equipe marketing"), ("5", "Equipe presidencia"), ("6", "Equipe Negocios")]
@@ -130,7 +132,7 @@ def meus_funcionarios():
 	page = request.args.get('page', 1, type=int)
 	funcionarios = Funcionario.query.filter_by(admin_id=current_user.id).paginate(page=page, per_page=12)
 	
-	return render_template("todos_funcionarios.html", setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario)
+	return render_template("todos_funcionarios.html", pesquisa=pesquisa, setor=setor, titulo=titulo, funcionarios=funcionarios, add_funcionario=add_funcionario)
 
 @login_required()
 @funcionarios.route("/exibe/<int:id>")
@@ -142,10 +144,16 @@ def exibe(id):
 	return render_template("funcionario.html", add_funcionario=add_funcionario, funcionario=funcionario)
 
 @login_required()
-@funcionarios.route("/buscar/<string:nome>", methods=["GET"])
-@funcionarios.route("/buscar", methods=["GET"], defaults={"nome":None})
-def buscar(nome):
-	add_funcionario = funcionario_form()
+@funcionarios.route("/busca/<string:nome_pesquisa>", methods=["GET"])
+@funcionarios.route("/busca", methods=["GET"], defaults={"nome_pesquisa":None})
+def busca(nome_pesquisa):
 
-	return render_template("busca_funcionario.html", add_funcionario=add_funcionario)
+	setor = [("0", "Equipe administrativo"), ("1", "Desenvolvedor"), ("2", "Equipe projetos"), ("3", "Equipe RH"), ("4", "Equipe marketing"), ("5", "Equipe presidencia"), ("6", "Equipe Negocios")]
+	setor = dict(setor)
 
+	page = request.args.get('page', 1, type=int)
+	funcionarios = Funcionario.query.filter(models.Course.name.like('%' + nome_pesquisa + '%').paginate(page=page, per_page=12)
+	return render_template("busca_funcionario.html", setor=setor, funcionarios=funcionarios)
+
+
+	
