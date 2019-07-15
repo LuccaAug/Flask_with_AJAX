@@ -97,28 +97,6 @@
       z-index: 900;
     }
     </style>
-
-    <script type="text/javascript">
-
-      $(document).ready(function(){
-
-          function busca(){
-              
-            $.ajax({
-
-              url: /busca/ + "$(pesq)",
-              success: function(data){
-                      $('#div_conteudo').html(data);
-                  },
-              });
-
-          });
-
-      });
-
-    </script>
-
-
   </head>
   <body>
 
@@ -174,14 +152,6 @@
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
           <span style="float: left" class="mdl-layout-title">{%block title%} {% endblock %}</span>
-          {% if pesquisa %}
-            <div style="float: right" class="mdl-textfield mdl-js-textfield">
-              <input id="pesq" style="float: left" class="mdl-textfield__input" type="text" id="sample1" placeholder="Search">
-              <button style="float: right" onclick="busca();" type="submit" class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">search</i>
-              </button>
-            </div>
-          {% endif %}
           <div class="mdl-layout-spacer">
           </div>
         </div>

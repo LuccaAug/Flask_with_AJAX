@@ -4,8 +4,29 @@
 
 {% block content %}
 
-{% for employer in funcionarios.items %}
+<script>
+  function busca(exibi ,endereco){
 
+    $.ajax({type : 'GET', 
+        url: endereco+"/"+$("#coisa_field").val(),
+        success: function(result){
+            $("#"+exibi).html(result)
+        },
+        complete: function(){
+          alert(this.readyState)
+        },
+      })
+
+  }
+</script>
+
+<div style="right: 0px;" class="mdl-textfield mdl-js-textfield">
+  <input id="coisa_field" style="float: left" class="mdl-textfield__input" type="text" id="sample1" placeholder="Search">
+  <button style="float: right" onclick="busca('resultado' ,'/busca');" type="submit" class="mdl-button mdl-js-button mdl-button--icon">Search
+  </button>
+</div>
+{% for employer in funcionarios.items %}
+<div style="display: block" id="div_todos_funcionarios">
 <style>
   .demo-card-square.mdl-card {
     width: 320px;
@@ -32,6 +53,10 @@
       </a>
     </div>
   </div>
+</div>
+<div id="resultado">
+
+</div>
 
 {% endfor %}
 
